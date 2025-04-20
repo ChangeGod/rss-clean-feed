@@ -8,7 +8,7 @@ const parser = new Parser();
 const xmlParser = new XMLParser({ ignoreAttributes: false });
 const xmlBuilder = new XMLBuilder({ ignoreAttributes: false });
 
-const SOURCES = [1, 2, 3];
+const SOURCES = [1];
 
 async function readFeedUrls(sourceIndex) {
   const content = fs.readFileSync(`feeds/source_${sourceIndex}.txt`, 'utf-8');
