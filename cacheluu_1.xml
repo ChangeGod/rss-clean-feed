@@ -1,5 +1,5 @@
-<rss version="2.0">
-  <channel xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
     <title>Cached Feed from https://www.forexlive.com/feed</title>
     <link>https://www.forexlive.com/feed</link>
     <description>FIFO cached RSS feed</description>
