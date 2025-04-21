@@ -30,6 +30,7 @@ async function fetchAndCache(sourceUrl, cacheFile) {
       '@_version': '2.0',
       channel: {
         title: `Cached Feed from ${sourceUrl}`,
+        '@_xmlns:dc': 'http://purl.org/dc/elements/1.1/', // 👈 thêm dòng này
         link: sourceUrl,
         description: 'FIFO cached RSS feed',
         item: combinedItems,
