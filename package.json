@@ -1,14 +1,12 @@
 {
-  "name": "rss-feed-generator",
+  "name": "rss-feed-cache",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "start": "node index.js"
-  },
   "dependencies": {
-    "fs-extra": "^11.1.0",
-    "rss-parser": "^3.12.0",
-    "fast-xml-parser": "^4.2.5"
+    "fast-xml-parser": "^4.5.0",
+    "fs-extra": "^11.2.0",
+    "rss-parser": "^3.13.0",
+    "node-fetch": "^3.3.2"
   }
 }
