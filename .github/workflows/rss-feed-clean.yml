@@ -1,45 +1,37 @@
-name: Update RSS Feeds
+name: Build & Deploy RSS to gh-pages 1
 
 on:
   schedule:
-    - cron: '0 */4 * * *' # Run every 4 hours
-  workflow_dispatch: # Allow manual trigger
-
-permissions:
-  contents: write # Grant write access to repository contents
-  pull-requests: write # Grant write access to create pull requests
+    - cron: "*/6 * * * *"  # Chạy mỗi 6 phút
+  workflow_dispatch:
 
 jobs:
-  update-feeds:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      # Checkout the repository
-      - name: Checkout code
+      - name: Checkout main branch
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # Set up Node.js
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 20
 
-      # Install dependencies
       - name: Install dependencies
-        run: npm install fs-extra rss-parser fast-xml-parser node-fetch
+        run: npm install
 
-      # Run the RSS feed script
-      - name: Run RSS feed script
+      - name: Run script
         run: node index.js
 
-      # Create a pull request for gh-pages
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update RSS feed cache files
-          branch: gh-pages-update
-          base: gh-pages
-          title: Update RSS feed cache files
-          body: Automated update of cacheluu_*.xml and *.html files
-          delete-branch: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
+          commit_message: "🚀 Update RSS Cache"
