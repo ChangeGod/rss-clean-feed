@@ -1,32 +1,37 @@
-name: Generate RSS Feed
+name: Update RSS Feeds
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Run every 6 hours
+    - cron: '*/6 * * * *' # Run every 6 mins
   workflow_dispatch: # Allow manual trigger
 
 jobs:
-  build-and-deploy:
+  update-feeds:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      # Checkout the repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
+      # Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm install fs-extra rss-parser fast-xml-parser node-fetch
 
+      # Run the RSS feed script
       - name: Run RSS feed script
         run: node index.js
 
-      - name: Deploy to gh-pages
+      # Deploy to gh-pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./output
-          destination_dir: ./
+          publish_dir: ./public
+          publish_branch: gh-pages
